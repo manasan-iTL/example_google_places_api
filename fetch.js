@@ -131,3 +131,47 @@ export async function fetchRestaurantViaV2TextSearch() {
         console.log(error)
     }
 }
+
+export async function fetchRestaurantViaV2NearBySearch() {
+    const BASE_URL = "https://places.googleapis.com/v1/places:searchNearby"
+
+    const requestHeader = new Headers({
+        'Content-Type': 'application/json',
+        // FieldMaskに指定できる値は公式リファレンスを参照
+        'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.location,places.types',
+        'X-Goog-Api-Key': GOOGLE_PLACES_API_KEY
+    })
+
+    const requestBody = {
+        // 必須のパラメーター
+        locationRestriction: {
+            circle: {
+                center: {
+                    "latitude": 35.69378380653818,
+                    "longitude": 139.7365565519017
+                },
+                radius: 50000.0
+            }
+        },
+
+        // これ以降はオプションのパラメーター
+        languageCode: "ja",
+        maxResultCount: 20,
+        // includedType: "",
+        // rankPreference: DISTANCE/RELEVANCE,
+    }
+
+    try {
+        const rawResponse = await fetch(`${BASE_URL}`, {
+            method: "POST",
+            headers: requestHeader,
+            body: JSON.stringify(requestBody)
+        })
+
+        const response = await rawResponse.json()
+
+        console.log(response)
+    } catch (error) {
+        console.log(error)
+    }
+}
