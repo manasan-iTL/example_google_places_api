@@ -89,3 +89,45 @@ export async function fetchRestaurantViaV1Detail() {
         console.log(error)
     }
 }
+
+export async function fetchRestaurantViaV2TextSearch() {
+    const BASE_URL = "https://places.googleapis.com/v1/places:searchText"
+
+    const requestHeader = new Headers({
+        'Content-Type': 'application/json',
+        // FieldMaskに指定できる値は公式リファレンスを参照
+        'X-Goog-FieldMask': 'places.displayName,places.formattedAddress,places.location,places.types',
+        'X-Goog-Api-Key': GOOGLE_PLACES_API_KEY
+    })
+
+    const requestBody = {
+        // 必須のパラメーター
+        textQuery: "市ヶ谷周辺のレストラン",
+
+        // これ以降はオプションのパラメーター
+        languageCode: "ja",
+        maxResultCount: 20,
+        // includedType: "",
+        // strictTypeFiltering: boolean,
+        // locationBias: {},
+        // locationRestriction: {},
+        // minRating: 0.0 ~ 5.0,
+        // openNow: boolean,
+        // priceLevels: [],
+        // rankPreference: DISTANCE/RELEVANCE,
+    }
+
+    try {
+        const rawResponse = await fetch(`${BASE_URL}`, {
+            method: "POST",
+            headers: requestHeader,
+            body: JSON.stringify(requestBody)
+        })
+
+        const response = await rawResponse.json()
+
+        console.log(response)
+    } catch (error) {
+        console.log(error)
+    }
+}
