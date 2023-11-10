@@ -9,7 +9,7 @@
 1. このリポジトリをクローンする（zipダウンロードでも可）
 2. `cd exmaple_google_maps_places_api`でフォルダ移動
 3. `npm install`をターミナルで実行
-4. ディレクトリ直下（package.jsonがある階層）に``.envファイル`を作成し、`GOOGLE_PLACES_API_KEY=(APIキーをコピペ)`を記述する
+4. ディレクトリ直下（package.jsonがある階層）に`.envファイル`を作成し、`GOOGLE_PLACES_API_KEY=(APIキーをコピペ)`を記述する
 5. 以下いずれかのコマンドを実行すると、ターミナルに結果が表示されます.
     - `npm run v1Text` (旧バージョンのTextSearch)
     - `npm run v1Near` (旧バージョンのNearBySearch)
