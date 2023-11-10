@@ -175,3 +175,34 @@ export async function fetchRestaurantViaV2NearBySearch() {
         console.log(error)
     }
 }
+
+export async function fetchRestaurantViaV2Detail() {
+    const BASE_URL = "https://places.googleapis.com/v1/places/"
+
+    // サンプルのPlace_id
+    const place_id = "ChIJb6HtSGeMGGARn8lCdfLfu7Q"
+
+    const requestHeader = new Headers({
+        'Content-Type': 'application/json',
+        // FieldMaskに指定できる値は公式リファレンスを参照
+        'X-Goog-FieldMask': 'displayName,formattedAddress,location,types',
+        'X-Goog-Api-Key': GOOGLE_PLACES_API_KEY
+    })
+
+    const queryParams =  new URLSearchParams({
+        languageCode: "ja"
+    })
+
+    try {
+        const rawResponse = await fetch(`${BASE_URL + place_id}?${queryParams}`, {
+            method: "GET",
+            headers: requestHeader,
+        })
+
+        const response = await rawResponse.json()
+
+        console.log(response)
+    } catch (error) {
+        console.log(error)
+    }
+}
