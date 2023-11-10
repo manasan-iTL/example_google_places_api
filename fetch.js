@@ -64,3 +64,28 @@ export async function fetchRestaurantViaV1TextSearch() {
         console.log(error)
     }
 }
+
+export async function fetchRestaurantViaV1Detail() {
+    const BASE_URL = "https://maps.googleapis.com/maps/api/place/details/json"
+
+    const queryParams =  new URLSearchParams({
+        // 以下のパラメーターは必須
+        place_id: "ChIJmVnECGGMGGARO8nCcqQ-ff8",
+        key: GOOGLE_PLACES_API_KEY,
+
+        // これ以降はオプション
+        language: "ja",
+        // fields: "",
+        // reviews_no_translations: boolean,
+        // reviews_sort: most_relevant/newest,
+    })
+
+    try {
+        const rawResponse = await fetch(`${BASE_URL}?${queryParams}`)
+        const response = await rawResponse.json()
+
+        console.log(response)
+    } catch (error) {
+        console.log(error)
+    }
+}
